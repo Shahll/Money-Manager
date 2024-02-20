@@ -20,8 +20,21 @@ public class TagController {
         return tm.displayTags();
     }
 
-    @PostMapping("add")
+    @PostMapping("/add")
     public void addTag(@RequestParam(value = "name") String name) {
         tm.addTag(name);
     }
+
+    @PutMapping("/change")
+    public void changeTagName(
+            @RequestParam(value = "oldName") String oldName,
+            @RequestParam(value = "newName") String newName ) {
+        tm.changeTagName(oldName, newName);
+    }
+
+    @DeleteMapping("/delete")
+    public void deleteTag(@RequestParam(value = "name") String name) {
+        tm.deleteTag(name);
+    }
+
 }

@@ -1,7 +1,6 @@
 package com.shahll.money.manager.DAO;
 
 import com.shahll.money.manager.model.Tag;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -36,12 +35,18 @@ public class TagManager {
         if (oldName.equals(newName)) {
             return;
         }
-
+        Tag tagToChange = null;
         for (Tag t : tags) {
             if (t.getName().equals(oldName)) {
-                t.setName(newName);
+                tagToChange = t;
+            }
+            if (t.getName().equals(newName)) {
+                 deleteTag(oldName);
                 return;
             }
+        }
+        if (tagToChange != null) {
+            tagToChange.setName(newName);
         }
     }
 
@@ -51,6 +56,7 @@ public class TagManager {
         for (Tag t : tags) {
             if (t.getName().equals(name)) {
                 tags.remove(t);
+                return;
             }
         }
     }
