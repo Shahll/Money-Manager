@@ -4,6 +4,7 @@ public class Income {
     private double amount;
     private Tag tag;
     private String note;
+    private double id;
 
     public Income(double amount, Tag tag, String note) {
         this.amount = amount;
@@ -39,6 +40,14 @@ public class Income {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public double getId() {
+        return id;
+    }
+
+    public void setId(double id) {
+        this.id = id;
     }
 }
 
