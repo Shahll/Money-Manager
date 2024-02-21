@@ -11,43 +11,81 @@ import java.util.List;
 @Service
 public class IncomeManager {
     private List<Income> incomeList;
+    private int currentId;
+
+    @Autowired
+    TagManager tm;
 
     public IncomeManager() {
         this.incomeList = new ArrayList<>();
+        currentId = 0;
     }
 
+    public List<Income> getIncomeList() {
+        return incomeList;
+    }
 
-    public void addIncome(double amount, Tag tag, String note) {
-        if (note.isEmpty()) {
-            note = "";
-        }
+    public void addIncome(double amount, String tagName, String note) {
         if (amount == 0) {
             return;
         }
+
+        for (Income i : incomeList) {
+            if (i.getTag().getName().equals(tagName) && i.getAmount() == amount) {
+                return;
+            }
+        }
+
+        Tag tag = tm.findTag(tagName);
         Income income = new Income(amount, tag, note);
+        income.setId(currentId);
+        currentId++;
         incomeList.add(income);
     }
 
-    public void deleteIncome(double amount, Tag tag) {
-        if (amount == 0) {
+    public void changeIncomeInformation(int id, double amount, String tagName, String note) {
+        if (amount == 0 && tagName.isEmpty() && note.isEmpty() ) {
             return;
         }
-        incomeList.removeIf(i -> i.getTag().getName().equals(tag.getName()) && i.getAmount() == amount);
-    }
 
-    public void deleteIncome() {
-        incomeList.removeLast();
-    }
-
-    public void addNote(double amount, Tag tag, String note) {
-        if (note.isEmpty() || amount == 0) {
+        Income income = getIncomeById(id);
+        if (income == null) {
             return;
         }
+
+        if (amount != 0) {
+            income.setAmount(amount);
+        }
+
+        if (!tagName.isEmpty()) {
+            Tag tag = tm.findTag(tagName);
+            income.setTag(tag);
+        }
+
+        if (!note.isEmpty()) {
+            income.setNote(note);
+        }
+
+    }
+
+    private Income getIncomeById(int id) {
+        Income incomeToChange = null;
         for (Income i : incomeList) {
-            if (i.getTag().getName().equals(tag.getName()) && i.getAmount() == amount) {
-                i.setNote(note);
+            if (i.getId() == id) {
+                incomeToChange = i;
             }
         }
+        return incomeToChange;
     }
+
+    public void deleteIncome(int id) {
+        if (id == -1) {
+            incomeList.removeLast();
+        } else {
+            incomeList.removeIf(i -> i.getId() == id);
+        }
+    }
+
+
 
 }
