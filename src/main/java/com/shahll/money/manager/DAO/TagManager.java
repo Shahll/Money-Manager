@@ -61,4 +61,15 @@ public class TagManager {
         }
     }
 
+    public Tag findTag(String name) {
+        for (Tag t : tags) {
+            if (t.getName().equals(name)) {
+                return t;
+            }
+        }
+        addTag(name);
+        return tags.getLast();
+
+    }
+
 }
