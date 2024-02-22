@@ -2,12 +2,14 @@ package com.shahll.money.manager.DAO;
 
 import com.shahll.money.manager.model.Expense;
 import com.shahll.money.manager.model.Tag;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Component
 public class ExpenseManager {
     private List<Expense> expenseList;
     private int currentId;
