@@ -15,14 +15,14 @@ public class ExpenseController {
     private ExpenseManager em;
 
     @PostMapping("/add")
-    public void addIncome(@RequestParam(value = "amount") double amount,
+    public void addExpense(@RequestParam(value = "amount") double amount,
                           @RequestParam(value = "tagName") String tagName,
                           @RequestParam(value = "note", defaultValue = "") String note) {
         em.addExpense(amount, tagName, note);
     }
 
     @GetMapping("/display")
-    public List<Expense> displayIncome() {
+    public List<Expense> displayExpense() {
         return em.getExpenseList();
     }
 
@@ -35,7 +35,7 @@ public class ExpenseController {
     }
 
     @DeleteMapping("/delete")
-    public void deleteIncome(@RequestParam(value = "id", defaultValue = "-1") int id) {
+    public void deleteExpense(@RequestParam(value = "id", defaultValue = "-1") int id) {
         em.deleteExpense(id);
     }
 
