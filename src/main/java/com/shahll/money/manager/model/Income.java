@@ -12,12 +12,6 @@ public class Income {
         this.note = note;
     }
 
-    public Income(double amount, Tag tag) {
-        this.amount = amount;
-        this.tag = tag;
-        this.note = "";
-    }
-
     public double getAmount() {
         return amount;
     }
