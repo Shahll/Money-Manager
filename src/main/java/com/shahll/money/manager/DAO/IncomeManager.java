@@ -13,10 +13,10 @@ public class IncomeManager {
     private List<Income> incomeList;
     private int currentId;
 
-    @Autowired
-    TagManager tm;
+    private final TagManager tm;
 
-    public IncomeManager() {
+    public IncomeManager(TagManager tm) {
+        this.tm = tm;
         this.incomeList = new ArrayList<>();
         currentId = 0;
     }

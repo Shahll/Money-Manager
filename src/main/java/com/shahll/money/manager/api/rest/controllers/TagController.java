@@ -11,9 +11,11 @@ import java.util.List;
 @RequestMapping("/api/tag")
 public class TagController {
 
-    @Autowired
-    private TagManager tm;
+    private final TagManager tm;
 
+    public TagController(TagManager tm) {
+        this.tm = tm;
+    }
 
     @GetMapping("/display")
     public List<Tag> showTags() {
