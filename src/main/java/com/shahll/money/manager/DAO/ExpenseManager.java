@@ -32,12 +32,6 @@ public class ExpenseManager {
             return;
         }
 
-        for (Expense e : expenseList) {
-            if (e.getTag().getName().equals(tagName) && e.getAmount() == amount) {
-                return;
-            }
-        }
-
         Tag tag = tm.findTag(tagName);
         Expense expense = new Expense(amount, tag, note);
         expense.setId(currentId);
@@ -45,7 +39,7 @@ public class ExpenseManager {
         expenseList.add(expense);
     }
 
-    public void changeExpenseInformation(int id, double amount, String tagName, String note) {
+    public void changeExpenseInformation(long id, double amount, String tagName, String note) {
         if (amount == 0 && tagName.isEmpty() && note.isEmpty() ) {
             return;
         }
@@ -70,7 +64,7 @@ public class ExpenseManager {
 
     }
 
-    private Expense getExpenseById(int id) {
+    public Expense getExpenseById(long id) {
         Expense expenseToChange = null;
         for (Expense e : expenseList) {
             if (e.getId() == id) {
@@ -80,7 +74,7 @@ public class ExpenseManager {
         return expenseToChange;
     }
 
-    public void deleteExpense(int id) {
+    public void deleteExpense(long id) {
         if (id == -1) {
             expenseList.removeLast();
         } else {

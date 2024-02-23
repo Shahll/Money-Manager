@@ -2,6 +2,8 @@ package com.shahll.money.manager.api.rest.controllers;
 
 import com.shahll.money.manager.DAO.ExpenseManager;
 import com.shahll.money.manager.model.Expense;
+import com.shahll.money.manager.model.Requests.ChangeExpenseRequest;
+import com.shahll.money.manager.model.Requests.IdRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,32 +13,42 @@ import java.util.List;
 @RequestMapping("/api/expense")
 public class ExpenseController {
 
+    @SuppressWarnings("unused")
     @Autowired
     private ExpenseManager em;
 
+    @SuppressWarnings("unused")
     @PostMapping("/add")
-    public void addExpense(@RequestParam(value = "amount") double amount,
-                          @RequestParam(value = "tagName") String tagName,
-                          @RequestParam(value = "note", defaultValue = "") String note) {
-        em.addExpense(amount, tagName, note);
+    public void addExpense(@RequestBody Expense input){
+        em.addExpense(input.getAmount(), input.getTag().getName(), input.getNote());
     }
 
+    @SuppressWarnings("unused")
     @GetMapping("/display")
     public List<Expense> displayExpense() {
         return em.getExpenseList();
     }
 
+    @SuppressWarnings("unused")
     @PutMapping("/change")
-    public void changeInfo(@RequestParam(value = "id") int id,
-                           @RequestParam(value = "amount", defaultValue = "0") double amount,
-                           @RequestParam(value = "tagName", defaultValue = "") String tagName,
-                           @RequestParam(value = "note", defaultValue = "") String note) {
-        em.changeExpenseInformation(id, amount, tagName, note);
+    public void changeInfo(@RequestBody ChangeExpenseRequest input) {
+        if (input.tag == null) {
+            input.setTag(em.getExpenseById(input.id).getTag());
+        }
+        if (input.note == null) {
+            input.setNote(em.getExpenseById(input.id).getNote());
+        }
+        if (input.amount == 0) {
+            input.setAmount(em.getExpenseById(input.id).getAmount());
+        }
+        em.changeExpenseInformation(input.id, input.amount, input.tag.getName(), input.note);
     }
 
+
+    @SuppressWarnings("unused")
     @DeleteMapping("/delete")
-    public void deleteExpense(@RequestParam(value = "id", defaultValue = "-1") int id) {
-        em.deleteExpense(id);
+    public void deleteExpense(@RequestBody IdRequest input){
+        em.deleteExpense(input.getId());
     }
 
 }

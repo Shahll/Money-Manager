@@ -1,17 +1,16 @@
-package com.shahll.money.manager.model;
+package com.shahll.money.manager.model.Requests;
 
-public class Expense {
-    private double amount;
-    private Tag tag;
-    private String note;
+import com.shahll.money.manager.model.Tag;
+
+public class ChangeExpenseRequest {
+    public double amount;
+    public Tag tag;
+    public String note;
     // TODO: creating id in DB (make DB instead of this)
     public long id;
     // TODO: add repetition
 
-    public Expense(double amount, Tag tag, String note) {
-        this.amount = amount;
-        this.tag = tag;
-        this.note = note;
+    public ChangeExpenseRequest() {
     }
 
     public double getAmount() {
