@@ -1,15 +1,14 @@
-package com.shahll.money.manager.model;
+package com.shahll.money.manager.model.Requests;
 
-public class Income {
-    private double amount;
-    private Tag tag;
-    private String note;
-    private long id;
+import com.shahll.money.manager.model.Tag;
 
-    public Income(double amount, Tag tag, String note) {
-        this.amount = amount;
-        this.tag = tag;
-        this.note = note;
+public class ChangeInputRequest {
+    public double amount;
+    public Tag tag;
+    public String note;
+    public long id;
+
+    public ChangeInputRequest() {
     }
 
     public double getAmount() {
@@ -44,5 +43,3 @@ public class Income {
         this.id = id;
     }
 }
-
-

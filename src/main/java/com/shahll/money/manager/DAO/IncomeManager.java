@@ -32,12 +32,6 @@ public class IncomeManager {
             return;
         }
 
-        for (Income i : incomeList) {
-            if (i.getTag().getName().equals(tagName) && i.getAmount() == amount) {
-                return;
-            }
-        }
-
         Tag tag = tm.findTag(tagName);
         Income income = new Income(amount, tag, note);
         income.setId(currentId);
@@ -45,7 +39,7 @@ public class IncomeManager {
         incomeList.add(income);
     }
 
-    public void changeIncomeInformation(int id, double amount, String tagName, String note) {
+    public void changeIncomeInformation(long id, double amount, String tagName, String note) {
         if (amount == 0 && tagName.isEmpty() && note.isEmpty() ) {
             return;
         }
@@ -70,7 +64,7 @@ public class IncomeManager {
 
     }
 
-    private Income getIncomeById(int id) {
+    public Income getIncomeById(long id) {
         Income incomeToChange = null;
         for (Income i : incomeList) {
             if (i.getId() == id) {
@@ -80,7 +74,7 @@ public class IncomeManager {
         return incomeToChange;
     }
 
-    public void deleteIncome(int id) {
+    public void deleteIncome(long id) {
         if (id == -1) {
             incomeList.removeLast();
         } else {
