@@ -1,8 +1,9 @@
 package com.shahll.money.manager.api.rest.controllers;
 
 import com.shahll.money.manager.DAO.TagManager;
+import com.shahll.money.manager.model.Requests.StringRequest;
+import com.shahll.money.manager.model.Requests.ChangeTagNameRequest;
 import com.shahll.money.manager.model.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,26 +18,34 @@ public class TagController {
         this.tm = tm;
     }
 
+    @SuppressWarnings("unused")
     @GetMapping("/display")
     public List<Tag> showTags() {
         return tm.displayTags();
     }
 
+    @SuppressWarnings("unused")
     @PostMapping("/add")
-    public void addTag(@RequestParam(value = "name") String name) {
-        tm.addTag(name);
+    public void addTag(@RequestBody StringRequest input) {
+        tm.addTag(input.getName());
     }
 
+    @SuppressWarnings("unused")
     @PutMapping("/change")
-    public void changeTagName(
-            @RequestParam(value = "oldName") String oldName,
-            @RequestParam(value = "newName") String newName ) {
-        tm.changeTagName(oldName, newName);
+    public void changeTagName(@RequestBody ChangeTagNameRequest input){
+        if (input.getOldName() == null || input.getNewName() == null) {
+            return;
+        }
+        tm.changeTagName(input.getOldName(), input.getNewName());
     }
 
-    @DeleteMapping("/delete")
-    public void deleteTag(@RequestParam(value = "name") String name) {
-        tm.deleteTag(name);
+      @SuppressWarnings("unused")
+      @DeleteMapping("/delete")
+    public void deleteTag(@RequestBody StringRequest input) {
+        if (input.getName() == null) {
+            return;
+        }
+        tm.deleteTag(input.getName());
     }
 
 }
