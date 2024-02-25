@@ -1,13 +1,12 @@
 package com.shahll.money.manager.DAO;
 
 import com.shahll.money.manager.model.Tag;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Service
 public class TagManager {
     private List<Tag> tags;
 

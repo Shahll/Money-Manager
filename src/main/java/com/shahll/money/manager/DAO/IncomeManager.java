@@ -2,7 +2,6 @@ package com.shahll.money.manager.DAO;
 
 import com.shahll.money.manager.model.Income;
 import com.shahll.money.manager.model.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 

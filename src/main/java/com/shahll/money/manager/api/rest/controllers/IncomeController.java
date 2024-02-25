@@ -1,9 +1,10 @@
 package com.shahll.money.manager.api.rest.controllers;
 
 import com.shahll.money.manager.DAO.IncomeManager;
-import com.shahll.money.manager.model.Requests.ChangeInputRequest;
 import com.shahll.money.manager.model.Income;
 import com.shahll.money.manager.model.Requests.IdRequest;
+import com.shahll.money.manager.model.Requests.IncomeRequest;
+import com.shahll.money.manager.model.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,8 @@ public class IncomeController {
 
     @SuppressWarnings("unused")
     @PostMapping("/add")
-    public void addIncome(@RequestBody Income input) {
-        im.addIncome(input.getAmount(), input.getTag().getName(), input.getNote());
+    public void addIncome(@RequestBody IncomeRequest input) {
+        im.addIncome(input.amount(), input.tag().getName(), input.note());
     }
 
     @SuppressWarnings("unused")
@@ -31,23 +32,27 @@ public class IncomeController {
 
     @SuppressWarnings("unused")
     @PutMapping("/change")
-    public void changeInfo(@RequestBody ChangeInputRequest input) {
-        if (input.tag == null) {
-            input.setTag(im.getIncomeById(input.id).getTag());
+    public void changeInfo(@RequestBody IncomeRequest input) {
+        double amount = input.amount();
+        Tag tag = input.tag();
+        String note = input.note();
+
+        if (amount == 0) {
+            amount = im.getIncomeById(input.id()).getAmount();
         }
-        if (input.note == null) {
-            input.setNote(im.getIncomeById(input.id).getNote());
+        if (tag == null) {
+            tag = im.getIncomeById(input.id()).getTag();
         }
-        if (input.amount == 0) {
-            input.setAmount(im.getIncomeById(input.id).getAmount());
+        if (note == null) {
+            note = im.getIncomeById(input.id()).getNote();
         }
-        im.changeIncomeInformation(input.id, input.amount, input.tag.getName(), input.note);
+        im.changeIncomeInformation(input.id(), amount, tag.getName(), note);
     }
 
     @SuppressWarnings("unused")
     @DeleteMapping("/delete")
     public void deleteIncome(@RequestBody IdRequest input) {
-        im.deleteIncome(input.getId());
+        im.deleteIncome(input.id());
     }
 
 
