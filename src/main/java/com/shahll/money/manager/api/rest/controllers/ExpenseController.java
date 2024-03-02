@@ -14,23 +14,19 @@ import java.util.List;
 @RequestMapping("/api/expense")
 public class ExpenseController {
 
-    @SuppressWarnings("unused")
     @Autowired
     private ExpenseManager em;
 
-    @SuppressWarnings("unused")
     @PostMapping("/add")
     public void addExpense(@RequestBody ExpenseRequest input){
         em.addExpense(input.amount(), input.tag().getName(), input.note());
     }
 
-    @SuppressWarnings("unused")
     @GetMapping("/display")
     public List<Expense> displayExpense() {
         return em.getExpenseList();
     }
 
-    @SuppressWarnings("unused")
     @PutMapping("/change")
     public void changeInfo(@RequestBody ExpenseRequest input) {
         double amount = input.amount();
@@ -49,8 +45,6 @@ public class ExpenseController {
         em.changeExpenseInformation(input.id(), amount, tag.getName(), note);
     }
 
-
-    @SuppressWarnings("unused")
     @DeleteMapping("/delete")
     public void deleteExpense(@RequestBody IdRequest input){
         em.deleteExpense(input.id());

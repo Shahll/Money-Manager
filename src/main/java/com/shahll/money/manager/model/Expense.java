@@ -1,6 +1,7 @@
 package com.shahll.money.manager.model;
 
 public class Expense {
+
     private double amount;
     private Tag tag;
     private String note;

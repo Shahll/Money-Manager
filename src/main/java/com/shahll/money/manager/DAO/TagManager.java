@@ -8,6 +8,7 @@ import java.util.List;
 
 @Service
 public class TagManager {
+
     private List<Tag> tags;
 
     public TagManager() {
@@ -69,7 +70,6 @@ public class TagManager {
         }
         addTag(name);
         return tags.getLast();
-
     }
 
 }

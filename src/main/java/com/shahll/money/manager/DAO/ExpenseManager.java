@@ -11,10 +11,9 @@ import java.util.List;
 @Service
 @Component
 public class ExpenseManager {
+
     private List<Expense> expenseList;
     private int currentId;
-
-
     private final TagManager tm;
 
     public ExpenseManager(TagManager tm) {
@@ -61,7 +60,6 @@ public class ExpenseManager {
         if (!note.isEmpty()) {
             expense.setNote(note);
         }
-
     }
 
     public Expense getExpenseById(long id) {
@@ -81,7 +79,5 @@ public class ExpenseManager {
             expenseList.removeIf(e -> e.getId() == id);
         }
     }
-
-
 
 }

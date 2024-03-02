@@ -18,19 +18,16 @@ public class TagController {
         this.tm = tm;
     }
 
-    @SuppressWarnings("unused")
     @GetMapping("/display")
     public List<Tag> showTags() {
         return tm.displayTags();
     }
 
-    @SuppressWarnings("unused")
     @PostMapping("/add")
     public void addTag(@RequestBody StringRequest input) {
         tm.addTag(input.name());
     }
 
-    @SuppressWarnings("unused")
     @PutMapping("/change")
     public void changeTagName(@RequestBody TagNameRequest input){
         if (input.oldName() == null || input.newName() == null) {
@@ -39,8 +36,7 @@ public class TagController {
         tm.changeTagName(input.oldName(), input.newName());
     }
 
-      @SuppressWarnings("unused")
-      @DeleteMapping("/delete")
+    @DeleteMapping("/delete")
     public void deleteTag(@RequestBody StringRequest input) {
         if (input.name() == null) {
             return;

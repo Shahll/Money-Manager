@@ -14,23 +14,19 @@ import java.util.List;
 @RequestMapping("/api/income")
 public class IncomeController {
 
-    @SuppressWarnings("unused")
     @Autowired
     private IncomeManager im;
 
-    @SuppressWarnings("unused")
     @PostMapping("/add")
     public void addIncome(@RequestBody IncomeRequest input) {
         im.addIncome(input.amount(), input.tag().getName(), input.note());
     }
 
-    @SuppressWarnings("unused")
     @GetMapping("/display")
     public List<Income> displayIncome() {
         return im.getIncomeList();
     }
 
-    @SuppressWarnings("unused")
     @PutMapping("/change")
     public void changeInfo(@RequestBody IncomeRequest input) {
         double amount = input.amount();
@@ -49,12 +45,10 @@ public class IncomeController {
         im.changeIncomeInformation(input.id(), amount, tag.getName(), note);
     }
 
-    @SuppressWarnings("unused")
     @DeleteMapping("/delete")
     public void deleteIncome(@RequestBody IdRequest input) {
         im.deleteIncome(input.id());
     }
-
 
 }
 
