@@ -1,49 +1,27 @@
 package com.shahll.money.manager.model;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table
+@Entity(name="incomes")
 public class Income {
-
-    private double amount;
-    private Tag tag;
-    private String note;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    public Income(double amount, Tag tag, String note) {
-        this.amount = amount;
-        this.tag = tag;
-        this.note = note;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public Tag getTag() {
-        return tag;
-    }
-
-    public void setTag(Tag tag) {
-        this.tag = tag;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+    private double amount;
+    private long tagId;
+    private String note;
+    @CreationTimestamp
+    private LocalDateTime createdOn;
 }
 
 

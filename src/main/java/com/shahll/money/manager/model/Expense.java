@@ -1,49 +1,25 @@
 package com.shahll.money.manager.model;
 
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table
+@Builder
+@Entity(name="expenses")
 public class Expense {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private double amount;
-    private Tag tag;
+    private long tagId;
     private String note;
-    // TODO: creating id in DB (make DB instead of this)
-    public long id;
-    // TODO: add repetition
+    @CreationTimestamp
+    private LocalDateTime createdOn;
 
-    public Expense(double amount, Tag tag, String note) {
-        this.amount = amount;
-        this.tag = tag;
-        this.note = note;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public Tag getTag() {
-        return tag;
-    }
-
-    public void setTag(Tag tag) {
-        this.tag = tag;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 }
