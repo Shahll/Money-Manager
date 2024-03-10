@@ -1,46 +1,49 @@
 package com.shahll.money.manager.controller;
 
+import com.shahll.money.manager.dto.IncomeDto;
+import com.shahll.money.manager.model.Income;
+import com.shahll.money.manager.service.impl.IncomeServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/income")
 public class IncomeController {
-//
-//    @Autowired
-//    private IncomeManager im;
-//
-//    @PostMapping("/add")
-//    public void addIncome(@RequestBody IncomeRequest input) {
-//        im.addIncome(input.amount(), input.tag().getName(), input.note());
-//    }
-//
-//    @GetMapping("/display")
-//    public List<Income> displayIncome() {
-//        return im.getIncomeList();
-//    }
-//
-//    @PutMapping("/change")
-//    public void changeInfo(@RequestBody IncomeRequest input) {
-//        double amount = input.amount();
-//        Tag tag = input.tag();
-//        String note = input.note();
-//
-//        if (amount == 0) {
-//            amount = im.getIncomeById(input.id()).getAmount();
-//        }
-//        if (tag == null) {
-//            tag = im.getIncomeById(input.id()).getTag();
-//        }
-//        if (note == null) {
-//            note = im.getIncomeById(input.id()).getNote();
-//        }
-//        im.changeIncomeInformation(input.id(), amount, tag.getName(), note);
-//    }
-//
-//    @DeleteMapping("/delete")
-//    public void deleteIncome(@RequestBody IdRequest input) {
-//        im.deleteIncome(input.id());
-//    }
+
+    private IncomeServiceImpl incomeService;
+
+    @Autowired
+    public IncomeController(IncomeServiceImpl incomeService) {
+        this.incomeService = incomeService;
+    }
+
+    @GetMapping("/list")
+    public List<IncomeDto> displayIncomes() {
+        return incomeService.findAllIncomes();
+    }
+
+    @GetMapping("/{id}")
+    public IncomeDto displayIncome(@PathVariable long id){
+        return incomeService.findIncomeById(id);
+    }
+
+    @PostMapping("/new")
+    public Income saveIncome(@RequestBody Income income){
+        return incomeService.saveIncome(income);
+    }
+
+    @PutMapping("/{id}/edit")
+    public void editIncome(@PathVariable long id, @RequestBody IncomeDto income) {
+        income.setId(id);
+        incomeService.updateIncome(income);
+    }
+
+    @DeleteMapping("/{id}/delete")
+    public void deleteIncome(@PathVariable long id) {
+        incomeService.deleteIncome(id);
+    }
 
 }
 

@@ -1,32 +1,37 @@
 package com.shahll.money.manager.controller;
 
+import com.shahll.money.manager.dto.ExpenseDto;
+import com.shahll.money.manager.dto.IncomeDto;
+import com.shahll.money.manager.service.impl.ExpenseServiceImpl;
+import com.shahll.money.manager.service.impl.IncomeServiceImpl;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("api/total")
+@RequestMapping("api/")
 public class TotalController {
-//
-//    private final ExpenseManager em;
-//    private final IncomeManager im;
-//
-//    public TotalController(ExpenseManager em, IncomeManager im) {
-//        this.em = em;
-//        this.im = im;
-//    }
-//
-//    @GetMapping("display")
-//    public double showTotalMoney() {
-//        double totalMoney = 0;
-//        for (Income i : im.getIncomeList()) {
-//            totalMoney += i.getAmount();
-//        }
-//        for (Expense e : em.getExpenseList()) {
-//            totalMoney -= e.getAmount();
-//        }
-//
-//        return totalMoney;
-//    }
+    private ExpenseServiceImpl expenseService;
+    private IncomeServiceImpl incomeService;
+
+    public TotalController(ExpenseServiceImpl expenseService, IncomeServiceImpl incomeService) {
+        this.expenseService = expenseService;
+        this.incomeService = incomeService;
+    }
+
+    @GetMapping("/total")
+    public double showTotalMoney() {
+        double totalMoney = 0;
+        for (IncomeDto i : incomeService.findAllIncomes()) {
+            totalMoney += i.getAmount();
+        }
+
+        for (ExpenseDto e : expenseService.findAllExpenses()) {
+            totalMoney -= e.getAmount();
+        }
+
+        return totalMoney;
+    }
 
 }

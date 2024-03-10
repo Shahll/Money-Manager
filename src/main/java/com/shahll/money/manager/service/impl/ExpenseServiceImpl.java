@@ -39,7 +39,12 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public ExpenseDto findExpenseById(long id) {
-        return mapToExpenseDto(Objects.requireNonNull(expenseRepository.findById(id)));
+        try {
+            return mapToExpenseDto(Objects.requireNonNull(expenseRepository.findById(id)));
+        } catch (Exception e) {
+            // TODO: handle
+            return null;
+        }
     }
 
     @Override

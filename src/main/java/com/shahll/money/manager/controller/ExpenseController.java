@@ -25,7 +25,7 @@ public class ExpenseController {
     }
 
     @GetMapping("/{id}")
-    public ExpenseDto addExpense(@PathVariable long id){
+    public ExpenseDto displayExpense(@PathVariable long id){
         return expenseService.findExpenseById(id);
     }
 
@@ -35,7 +35,7 @@ public class ExpenseController {
     }
 
     @PutMapping("/{id}/edit")
-    public void updateExpense(@PathVariable long id, @RequestBody ExpenseDto expense) {
+    public void editExpense(@PathVariable long id, @RequestBody ExpenseDto expense) {
         expense.setId(id);
         expenseService.updateExpense(expense);
     }

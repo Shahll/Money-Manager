@@ -1,2 +1,11 @@
-package com.shahll.money.manager.dto;public class TagDto {
+package com.shahll.money.manager.dto;
+
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
+public class TagDto {
+    long id;
+    String name;
 }
